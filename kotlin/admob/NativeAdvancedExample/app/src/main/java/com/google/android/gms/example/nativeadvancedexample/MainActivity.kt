@@ -24,17 +24,12 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.VideoController
-import com.google.android.gms.ads.VideoOptions
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.google.android.gms.internal.ads.zzbbd
 import kotlinx.android.synthetic.main.activity_main.ad_frame
 import kotlinx.android.synthetic.main.activity_main.refresh_button
 import kotlinx.android.synthetic.main.activity_main.start_muted_checkbox
@@ -53,7 +48,13 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     // Initialize the Mobile Ads SDK.
-    MobileAds.initialize(this) {}
+    MobileAds.initialize(this) {
+      MobileAds.setRequestConfiguration(
+        RequestConfiguration.Builder()
+          .setTestDeviceIds(listOf(zzbbd.zzt(this)))
+          .build()
+      )
+    }
 
     refresh_button.setOnClickListener { refreshAd() }
 
